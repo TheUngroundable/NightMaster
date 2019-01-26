@@ -14,6 +14,7 @@ public class move : MonoBehaviour
     public float panSpeed = 20f;
     public float speed = 10f;
     public float pickingThreshold = 0.5f;
+    int objCount = 0;
     void Update()
     {
 
@@ -36,12 +37,18 @@ public class move : MonoBehaviour
         if (Input.GetKey("space"))
         {
             GameObject pickable = FindClosestEnemy();
-            if ((pickable.transform.position - transform.position).magnitude < pickingThreshold)
+            
+            if ( (pickable != null)&&(pickable.transform.position - transform.position).magnitude < pickingThreshold)
             {
-               // pickable.des
+                objCount++;
+                Destroy(pickable);
             }
         }
 
+    }
+    void OnGUI()
+    {
+            GUI.Label(new Rect(200, 100, 100, 100), objCount.ToString());
     }
 
     // Find the name of the closest enemy

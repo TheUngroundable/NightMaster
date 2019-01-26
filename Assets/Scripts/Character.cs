@@ -33,19 +33,18 @@ public class Character : MonoBehaviour
     }
 
     void Movement(){
-        if (controller.isGrounded) {
-            if (Mathf.Abs(Input.GetAxis(leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(leftVerticalAxis)) > deadZone) {
-                moveDirection = new Vector3(Input.GetAxis(leftHorizontalAxis), 0.0f, Input.GetAxis(leftVerticalAxis));
+        if (controller.isGrounded)
+        {
+            if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone)
+            {
+                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis(verticalAxis));
                 moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = moveDirection * speed;
+                
+                transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
             }
-        }
 
-        if (Mathf.Abs(Input.GetAxis(rightHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(rightVerticalAxis)) > deadZone) {
-            rotation = new Vector3(Input.GetAxis(rightHorizontalAxis), 0, Input.GetAxis(leftHorizontalAxis));
-            transform.rotation = Quaternion.LookRotation(rotation);
         }
-
         // Apply gravity
         moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
 
@@ -54,3 +53,25 @@ public class Character : MonoBehaviour
 
     }
 }
+
+        if (controller.isGrounded)
+        {
+            if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone)
+            {
+                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis(verticalAxis));
+                moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection = moveDirection * speed;
+                
+               
+            }
+
+        }
+        // Apply gravity
+        moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
+
+        // Move the controller
+        controller.Move(moveDirection * Time.deltaTime);
+
+        //Rotate character
+        transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
+
