@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public float speed = 2.0f;
     public float rotationSpeed = 2.0f;
 
-    private Vector3 rotation; 
+    private Vector3 rotation;
     public string leftHorizontalAxis = "LHorizontal";
     public string leftVerticalAxis = "LVertical";
     public string rightHorizontalAxis = "RHorizontal";
@@ -21,30 +21,37 @@ public class Character : MonoBehaviour
     private Vector3 moveDirection;
 
     // Start is called before the first frame update
-    void Start(){
+    void Start()
+    {
         controller = GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
         gameObject.transform.position = new Vector3(transform.position.x, 5, transform.position.z);
     }
 
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
         Movement();
     }
 
-    void Movement(){
+    void Movement()
+    {
         if (controller.isGrounded)
         {
-            if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone)
+            if (Mathf.Abs(Input.GetAxis(leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(leftVerticalAxis)) > deadZone)
             {
-                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis(verticalAxis));
+                moveDirection = new Vector3(Input.GetAxis(leftHorizontalAxis), 0.0f, Input.GetAxis(leftVerticalAxis));
                 moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = moveDirection * speed;
-                
-                transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
             }
-
         }
+
+        if (Mathf.Abs(Input.GetAxis(rightHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(rightVerticalAxis)) > deadZone)
+        {
+            rotation = new Vector3(Input.GetAxis(rightHorizontalAxis), 0, Input.GetAxis(leftHorizontalAxis));
+            transform.rotation = Quaternion.LookRotation(rotation);
+        }
+
         // Apply gravity
         moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
 
@@ -53,25 +60,3 @@ public class Character : MonoBehaviour
 
     }
 }
-
-        if (controller.isGrounded)
-        {
-            if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone)
-            {
-                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis(verticalAxis));
-                moveDirection = transform.TransformDirection(moveDirection);
-                moveDirection = moveDirection * speed;
-                
-               
-            }
-
-        }
-        // Apply gravity
-        moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
-
-        // Move the controller
-        controller.Move(moveDirection * Time.deltaTime);
-
-        //Rotate character
-        transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
-
