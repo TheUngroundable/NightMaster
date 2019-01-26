@@ -5,10 +5,18 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     // Public Variables (name order by a-Z)
-    public float deadZone = 0.1f;
-    public float gravity = 20.0f;
-    public float speed = 2.0f;
-    public float rotationSpeed = 2.0f;
+
+    //Movement Attributes
+    public float speed = 10.0f;
+    public float rotationSpeed = 100.0f;
+    public Vector3 oldPosition;
+    public Vector3 direction;
+    //Controller Attributes
+    public float deadZone = 0.5f;
+    private float LxDirection;
+    private float RxDirection;
+    private float LzDirection;
+    private float RzDirection;
 
     private Vector3 rotation;
     private string leftHorizontalAxis = "LHorizontal";
@@ -43,28 +51,34 @@ public class Character : MonoBehaviour
 
     void Movement(){
 
-        if (controller.isGrounded) {
-            if (Mathf.Abs(Input.GetAxis(leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(leftVerticalAxis)) > deadZone) {
-                moveDirection = new Vector3(Input.GetAxis(leftHorizontalAxis), 0.0f, Input.GetAxis(leftVerticalAxis));
-                moveDirection = transform.TransformDirection(moveDirection);
-                moveDirection = moveDirection * speed;
-            }else{
-				moveDirection = new Vector3(0, 0, 0);
-			}
-        }
-		
-		if (Mathf.Abs(Input.GetAxis(rightHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(rightVerticalAxis)) > deadZone) {
-            Debug.Log("Rotate");
-            rotation = new Vector3(Input.GetAxis(rightHorizontalAxis), 0, Input.GetAxis(rightVerticalAxis));
-			transform.rotation = Quaternion.LookRotation(rotation);
-		}
+        var x = Input.GetAxis("LHorizontal");
+        var y = Input.GetAxis("LVertical");
 
-		// Apply gravity
-		moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
-		
-		// Move the controller
-		controller.Move(moveDirection * Time.deltaTime);
+
+        Move(x, y);
+
+        if (Mathf.Abs(Input.GetAxis("RHorizontal")) >= deadZone || Mathf.Abs(Input.GetAxis("RVertical")) >= deadZone)
+        {
+            RxDirection = Input.GetAxis("RHorizontal") * rotationSpeed;
+            RzDirection = Input.GetAxis("RVertical") * rotationSpeed;
+
+        }
+
+        Vector3 targetRotation = new Vector3(RxDirection, 0, RzDirection);
+        transform.rotation = Quaternion.LookRotation(targetRotation);
     }
+
+    void Move(float x, float y)
+    {
+
+
+        /*transform.position += (Vector3.forward * speed) * y * Time.deltaTime;
+        transform.position += (Vector3.right * speed) * x * Time.deltaTime;*/
+        Vector3 movementDirection = new Vector3(x * speed * Time.deltaTime, 0, y * speed * Time.deltaTime);
+        transform.Translate(movementDirection, Space.World);
+        
+    }
+
 
     void Debuff()
     {
