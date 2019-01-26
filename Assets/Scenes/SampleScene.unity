@@ -149,7 +149,7 @@ MonoBehaviour:
   debugMovement: 0
   debugRotation: 0
   debugStat: 0
-  playerSpeed: 10
+  playerSpeed: 30
   hasPickable: 0
   hp: 100
   isSlowed: 0
