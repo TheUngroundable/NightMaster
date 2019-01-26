@@ -8,12 +8,6 @@ public class Player : MonoBehaviour
     //COMPONENTS
     private Rigidbody rb;
 
-    //DEBUG
-    public bool debugInput;
-    public bool debugMovement;
-    public bool debugRotation;
-    public bool debugStat;
-
     //INPUTS
     private float lhAxis;
     private float rhAxis;
@@ -64,21 +58,12 @@ public class Player : MonoBehaviour
         rvAxis = Input.GetAxis(playerNumber + "RVertical");
         deployTrap = Input.GetButtonDown(playerNumber+"Trap");
 
-        if(playerNumber == 2)
-        {
-            Debug.Log(lhAxis + " " + rhAxis + " " + lvAxis + " " + rvAxis);
-        }
     }
 
     void PlayerMovement()
     {
         moveVector = new Vector3(lhAxis * playerSpeed, 0, lvAxis * playerSpeed);
         rb.AddForce(moveVector);
-
-        if (playerNumber == 2)
-        {
-            Debug.Log(moveVector);
-        }
     }
 
     void PlayerTurn()
@@ -87,10 +72,6 @@ public class Player : MonoBehaviour
         {
             headingDirection = Mathf.Atan2(rhAxis,rvAxis);
             transform.rotation = Quaternion.Euler(0, headingDirection * Mathf.Rad2Deg,0);
-            if (debugRotation)
-            {
-                Debug.Log("headingDirection :" + headingDirection);
-            }
         }
     }
     
@@ -132,6 +113,11 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if(collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<Player>().playerNumber != playerNumber && collision.gameObject.GetComponent<Player>().hasPickable)
+        {
+            Debug.Log("DIOCANE");
+            collision.gameObject.GetComponent<Player>().hasPickable = false;
+            DropPickable();
+        }
     }
 }

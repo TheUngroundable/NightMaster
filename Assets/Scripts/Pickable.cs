@@ -8,7 +8,7 @@ public class Pickable : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
 
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !other.gameObject.GetComponent<Player>().hasPickable)
         {
             Debug.Log("porcodio");
             other.gameObject.GetComponent<Player>().hasPickable = true;

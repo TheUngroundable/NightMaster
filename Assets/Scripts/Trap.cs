@@ -15,7 +15,7 @@ public class Trap : MonoBehaviour
         if (other.tag=="Player")
         {
             Player player = other.GetComponent<Player>();
-            if (!isDeployed)
+            if (!isDeployed && !player.hasTrap)
             {
                 player.hasTrap = true;
                 Destroy(this.gameObject);
