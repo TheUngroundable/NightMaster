@@ -6,7 +6,7 @@ public class GameMenager : MonoBehaviour
 {
     public GameObject pickable;
     public GameObject[] pickableSpawnPoint;
-    public const float gameTime = 10.0f;
+    public const float gameTime = 100.0f;
     public float currentGameTime;
 
     // Start is called before the first frame update

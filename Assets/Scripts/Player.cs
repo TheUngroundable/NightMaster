@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     //GAME
     public bool hasPickable;
+    public int hp = 100;
+    public bool isSlowed = false;
 
     void Start()
     {

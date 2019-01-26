@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Home : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int point;
+    public int playerHome;
+    
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.tag == "Player" && other.GetComponent<Player>().hasPickable)
+        {
+            point++;
+            other.gameObject.GetComponent<Player>().hasPickable = false;
+        }
     }
 }

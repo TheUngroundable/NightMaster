@@ -7,10 +7,12 @@ public class Pickable : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+
         if (other.tag == "Player")
         {
-            other.GetComponent<Player>().hasPickable = true;
-            Destroy(this);
+            Debug.Log("porcodio");
+            other.gameObject.GetComponent<Player>().hasPickable = true;
+            GameObject.Destroy(gameObject);
         }
     }
 }
