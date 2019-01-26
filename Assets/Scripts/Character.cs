@@ -36,7 +36,7 @@ public class Character : MonoBehaviour
                 moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = moveDirection * speed;
                 
-                transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
+               
             }
 
         }
@@ -45,6 +45,9 @@ public class Character : MonoBehaviour
 
         // Move the controller
         controller.Move(moveDirection * Time.deltaTime);
+
+        //Rotate character
+        transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
 
     }
 }
