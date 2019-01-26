@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private float rhAxis;
     private float lvAxis;
     private float rvAxis;
+    private bool deployTrap;
 
     //MOVEMENT
     private Vector3 moveVector;
@@ -29,7 +30,11 @@ public class Player : MonoBehaviour
 
     //GAME
     public bool hasPickable;
+    public bool hasTrap = false;
+    public bool isSlowed = false;
+    public int playerNumber = 1;
 
+    public int hp;
     void Start()
     {
         PlayerInit();
@@ -40,6 +45,7 @@ public class Player : MonoBehaviour
         GetInput();
         PlayerMovement();
         PlayerTurn();
+        DeployTrap();
         if (debugStat)
         {
             Debug.Log(hasPickable);
@@ -54,18 +60,11 @@ public class Player : MonoBehaviour
 
     void GetInput()
     {
-        lhAxis = Input.GetAxis("1LHorizontal");
-        rhAxis = Input.GetAxis("1RHorizontal");
-        lvAxis = Input.GetAxis("1LVertical");
-        rvAxis = Input.GetAxis("1RVertical");
-
-        if (debugInput)
-        {
-            Debug.Log("left horizontal axis : " + lhAxis);
-            Debug.Log("right horizontal axis : " + rhAxis);
-            Debug.Log("left vertical axis : " + lvAxis);
-            Debug.Log("right vertical axis : " + rvAxis);
-        }
+        lhAxis = Input.GetAxis(playerNumber + "1LHorizontal");
+        rhAxis = Input.GetAxis(playerNumber + "1RHorizontal");
+        lvAxis = Input.GetAxis(playerNumber + "1LVertical");
+        rvAxis = Input.GetAxis(playerNumber + "1RVertical");
+        deployTrap = Input.GetButtonDown(playerNumber+"Trap");
     }
 
     void PlayerMovement()
@@ -84,6 +83,28 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("headingDirection :" + headingDirection);
             }
+        }
+    }
+    
+    public void SlowDown(int slowedSpeed, int delayTime)
+    {
+        StartCoroutine(slowPlayerDown(slowedSpeed));
+    }
+
+    IEnumerator slowPlayerDown(int slowedSpeed)
+    {
+        this.playerSpeed = slowedSpeed;
+
+        yield return new WaitForSeconds(delayTime);
+        this.isSlowed = false;
+    }
+
+    void DeployTrap()
+    {
+        if (deployTrap)
+        {
+            //Instanzia trappola
+            //Instantiate();
         }
     }
 }
