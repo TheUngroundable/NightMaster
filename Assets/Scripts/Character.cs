@@ -9,27 +9,36 @@ public class Character : MonoBehaviour
     public float gravity = 20.0f;
     public float speed = 2.0f;
     public float rotationSpeed = 2.0f;
-	private float value = -90;
 
     private Vector3 rotation;
-    public string leftHorizontalAxis = "Horizontal";
-    public string leftVerticalAxis = "Vertical";
+    private string leftHorizontalAxis = "LHorizontal";
+    private string leftVerticalAxis = "LVertical";
+
+    private string rightHorizontalAxis = "RHorizontal";
+    private string rightVerticalAxis = "RVertical";
 
     // Private Variables (name order by a-Z)
     private CharacterController controller;
     private Vector3 moveDirection;
+
+    public Torch torcia;
+    
 
     // Start is called before the first frame update
     void Start(){
         controller = GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
         gameObject.transform.position = new Vector3(transform.position.x, 5, transform.position.z);
-		
 	}
 
     // Update is called once per frame
     void Update(){
         Movement();
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            torcia.Toggle();
+        }
     }
 
     void Movement(){
@@ -44,8 +53,9 @@ public class Character : MonoBehaviour
 			}
         }
 		
-		if (Mathf.Abs(Input.GetAxis("R" + leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis("R" + leftVerticalAxis)) > deadZone) {
-			rotation = new Vector3(Input.GetAxis("R" + leftHorizontalAxis), 0, Input.GetAxis("R" + leftVerticalAxis));
+		if (Mathf.Abs(Input.GetAxis(rightHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(rightVerticalAxis)) > deadZone) {
+            Debug.Log("Rotate");
+            rotation = new Vector3(Input.GetAxis(rightHorizontalAxis), 0, Input.GetAxis(rightVerticalAxis));
 			transform.rotation = Quaternion.LookRotation(rotation);
 		}
 
@@ -54,6 +64,11 @@ public class Character : MonoBehaviour
 		
 		// Move the controller
 		controller.Move(moveDirection * Time.deltaTime);
+    }
+
+    void Debuff()
+    {
+        //viene rallentato
     }
 }
 
