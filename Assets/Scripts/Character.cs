@@ -6,10 +6,15 @@ public class Character : MonoBehaviour
 {
     // Public Variables (name order by a-Z)
     public float deadZone = 0.1f;
-    public string horizontalAxis = "Horizontal";
     public float gravity = 20.0f;
     public float speed = 2.0f;
-    public string verticalAxis = "Vertical";
+    public float rotationSpeed = 2.0f;
+
+    private Vector3 rotation; 
+    public string leftHorizontalAxis = "LHorizontal";
+    public string leftVerticalAxis = "LVertical";
+    public string rightHorizontalAxis = "RHorizontal";
+    public string rightVerticalAxis = "RVertical";
 
     // Private Variables (name order by a-Z)
     private CharacterController controller;
@@ -28,18 +33,19 @@ public class Character : MonoBehaviour
     }
 
     void Movement(){
-        if (controller.isGrounded)
-        {
-            if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone)
-            {
-                moveDirection = new Vector3(0.0f, 0.0f, Input.GetAxis(verticalAxis));
+        if (controller.isGrounded) {
+            if (Mathf.Abs(Input.GetAxis(leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(leftVerticalAxis)) > deadZone) {
+                moveDirection = new Vector3(Input.GetAxis(leftHorizontalAxis), 0.0f, Input.GetAxis(leftVerticalAxis));
                 moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection = moveDirection * speed;
-                
-                transform.Rotate(0, Input.GetAxis(horizontalAxis), 0);
             }
-
         }
+
+        if (Mathf.Abs(Input.GetAxis(rightHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(rightVerticalAxis)) > deadZone) {
+            rotation = new Vector3(Input.GetAxis(rightHorizontalAxis), 0, Input.GetAxis(leftHorizontalAxis));
+            transform.rotation = Quaternion.LookRotation(rotation);
+        }
+
         // Apply gravity
         moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
 
