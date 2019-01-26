@@ -22,9 +22,9 @@ public class Trap : MonoBehaviour
             } else if(player.playerNumber != this.playerNumber){
                 //make damage
                 player.hp-=damage;
-                //
                 player.isSlowed = true;
                 player.SlowDown(slowedSpeed, delayTime);
+                player.DropPickable();
                 //start coroutine dove rallenta questo player e gli fa droppare l' obiettivo se ce l'ha
                 Destroy(this.gameObject);
             }

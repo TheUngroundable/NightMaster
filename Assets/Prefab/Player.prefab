@@ -123,6 +123,8 @@ MonoBehaviour:
   playerNumber: 1
   delayTime: 3
   trap: {fileID: 2525692823180417935, guid: 25c1ccf7cb9161f4d810abfd9cf11751, type: 3}
+  pickable: {fileID: 1688554446321980878, guid: 4bd08f1dfb8bb424ca0ff7ab20ef323c,
+    type: 3}
 --- !u!136 &3766261604680639825
 CapsuleCollider:
   m_ObjectHideFlags: 0

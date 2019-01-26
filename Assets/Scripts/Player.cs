@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     public int playerNumber = 1;
     public float delayTime = 3.0f;
     public GameObject trap;
+    public GameObject pickable;
     void Start()
     {
         PlayerInit();
@@ -62,12 +63,22 @@ public class Player : MonoBehaviour
         lvAxis = Input.GetAxis(playerNumber + "LVertical");
         rvAxis = Input.GetAxis(playerNumber + "RVertical");
         deployTrap = Input.GetButtonDown(playerNumber+"Trap");
+
+        if(playerNumber == 2)
+        {
+            Debug.Log(lhAxis + " " + rhAxis + " " + lvAxis + " " + rvAxis);
+        }
     }
 
     void PlayerMovement()
     {
         moveVector = new Vector3(lhAxis * playerSpeed, 0, lvAxis * playerSpeed);
         rb.AddForce(moveVector);
+
+        if (playerNumber == 2)
+        {
+            Debug.Log(moveVector);
+        }
     }
 
     void PlayerTurn()
@@ -109,5 +120,18 @@ public class Player : MonoBehaviour
             
             hasTrap = false;
         }
+    }
+
+    public void DropPickable()
+    {
+        GameObject tempPickable;
+        hasPickable = false;
+        tempPickable = GameObject.Instantiate(pickable, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), new Quaternion(0, 0, 0, 0));
+        tempPickable.GetComponent<Rigidbody>().AddForce((transform.forward + transform.up) * 5, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }
