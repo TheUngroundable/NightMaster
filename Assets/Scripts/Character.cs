@@ -28,7 +28,6 @@ public class Character : MonoBehaviour
     }
 
     void Movement(){
-        moveDirection = Vector3.zero;
         if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone){
             moveDirection = new Vector3(Input.GetAxis(horizontalAxis), 0.0f, Input.GetAxis(verticalAxis));
             moveDirection = transform.TransformDirection(moveDirection);
