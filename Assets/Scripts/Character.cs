@@ -28,16 +28,21 @@ public class Character : MonoBehaviour
     }
 
     void Movement(){
-        if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone){
-            moveDirection = new Vector3(Input.GetAxis(horizontalAxis), 0.0f, Input.GetAxis(verticalAxis));
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection = moveDirection * speed;
-        }
+        if (controller.isGrounded)
+        {
+            if (Mathf.Abs(Input.GetAxis(horizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis(verticalAxis)) > deadZone)
+            {
+                moveDirection = new Vector3(Input.GetAxis(horizontalAxis), 0.0f, Input.GetAxis(verticalAxis));
+                moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection = moveDirection * speed;
+            }
 
+        }
         // Apply gravity
         moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
 
         // Move the controller
         controller.Move(moveDirection * Time.deltaTime);
+
     }
 }
