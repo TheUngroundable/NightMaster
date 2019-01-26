@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public float playerSpeed;
 
     //GAME
-    public int point;
+    public bool hasPickable;
 
     void Start()
     {
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         PlayerTurn();
         if (debugStat)
         {
-            Debug.Log(point);
+            Debug.Log(hasPickable);
         }
     }
 

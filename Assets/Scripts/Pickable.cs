@@ -9,7 +9,7 @@ public class Pickable : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<Player>().point += 1;
+            other.GetComponent<Player>().hasPickable = true;
             Destroy(this);
         }
     }
