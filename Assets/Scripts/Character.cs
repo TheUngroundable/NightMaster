@@ -44,8 +44,8 @@ public class Character : MonoBehaviour
 			}
         }
 		
-		if (Mathf.Abs(Input.GetAxis("r_" + leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis("r_" + leftVerticalAxis)) > deadZone) {
-			rotation = new Vector3(Input.GetAxis("r_" + leftHorizontalAxis), 0, Input.GetAxis("r_" + leftVerticalAxis));
+		if (Mathf.Abs(Input.GetAxis("R" + leftHorizontalAxis)) > deadZone || Mathf.Abs(Input.GetAxis("R" + leftVerticalAxis)) > deadZone) {
+			rotation = new Vector3(Input.GetAxis("R" + leftHorizontalAxis), 0, Input.GetAxis("R" + leftVerticalAxis));
 			transform.rotation = Quaternion.LookRotation(rotation);
 		}
 
