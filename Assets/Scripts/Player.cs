@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     public bool isSlowed = false;
     public bool hasTrap = false;
     public int playerNumber = 1;
+    public float delayTime = 3.0f;
+    public GameObject trap;
     void Start()
     {
         PlayerInit();
@@ -45,10 +47,6 @@ public class Player : MonoBehaviour
         PlayerMovement();
         PlayerTurn();
         DeployTrap();
-        if (debugStat)
-        {
-            Debug.Log(hasPickable);
-        }
     }
 
     // PlayerInit take all components and set values
@@ -59,10 +57,10 @@ public class Player : MonoBehaviour
 
     void GetInput()
     {
-        lhAxis = Input.GetAxis(playerNumber + "1LHorizontal");
-        rhAxis = Input.GetAxis(playerNumber + "1RHorizontal");
-        lvAxis = Input.GetAxis(playerNumber + "1LVertical");
-        rvAxis = Input.GetAxis(playerNumber + "1RVertical");
+        lhAxis = Input.GetAxis(playerNumber + "LHorizontal");
+        rhAxis = Input.GetAxis(playerNumber + "RHorizontal");
+        lvAxis = Input.GetAxis(playerNumber + "LVertical");
+        rvAxis = Input.GetAxis(playerNumber + "RVertical");
         deployTrap = Input.GetButtonDown(playerNumber+"Trap");
     }
 
@@ -87,23 +85,29 @@ public class Player : MonoBehaviour
     
     public void SlowDown(int slowedSpeed, int delayTime)
     {
-        StartCoroutine(slowPlayerDown(slowedSpeed));
+        StartCoroutine(slowPlayerDown(slowedSpeed,delayTime));
     }
 
-    IEnumerator slowPlayerDown(int slowedSpeed)
+    IEnumerator slowPlayerDown(int slowedSpeed,int delayTime)
     {
+        float tempSpeed = playerSpeed;
         this.playerSpeed = slowedSpeed;
 
         yield return new WaitForSeconds(delayTime);
         this.isSlowed = false;
+        playerSpeed = tempSpeed;
     }
 
     void DeployTrap()
     {
-        if (deployTrap)
+        if (deployTrap && hasTrap)
         {
-            //Instanzia trappola
-            //Instantiate();
+            GameObject deployedTrap;
+            deployedTrap = GameObject.Instantiate(trap,transform.position,new Quaternion(0,0,0,0));
+            deployedTrap.GetComponent<Trap>().isDeployed = true;
+            deployedTrap.GetComponent<Trap>().playerNumber = this.playerNumber;
+            
+            hasTrap = false;
         }
     }
 }

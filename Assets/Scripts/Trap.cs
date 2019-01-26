@@ -6,7 +6,7 @@ public class Trap : MonoBehaviour
 {
     public bool isDeployed = false;
     public int playerNumber = 0;
-    public int damage;
+    public int damage = 50;
     public int slowedSpeed = 5;
     public int delayTime = 3;
 

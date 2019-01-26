@@ -134,7 +134,7 @@ InputManager:
     axis: 4
     joyNum: 2
   - serializedVersion: 3
-    m_Name: 1Fire
+    m_Name: 1Trap
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -150,7 +150,7 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: 2Fire
+    m_Name: 2Trap
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
