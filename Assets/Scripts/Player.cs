@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private float lvAxis;
     private float rvAxis;
     private bool deployTrap;
+    private bool toggleTorch;
 
     //MOVEMENT
     private Vector3 moveVector;
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour
         PlayerMovement();
         PlayerTurn();
         DeployTrap();
+        ToggleTorch();
     }
 
     // PlayerInit take all components and set values
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour
         lvAxis = Input.GetAxis(playerNumber + "LVertical");
         rvAxis = Input.GetAxis(playerNumber + "RVertical");
         deployTrap = Input.GetButtonDown(playerNumber+"Trap");
+        toggleTorch = Input.GetButtonDown(playerNumber+"Torch");
 
     }
 
@@ -111,6 +114,14 @@ public class Player : MonoBehaviour
             deployedTrap.GetComponent<Trap>().playerNumber = this.playerNumber;
             
             hasTrap = false;
+        }
+    }
+
+    void ToggleTorch()
+    {
+        if (toggleTorch)
+        {
+            lights.Toggle();
         }
     }
 
