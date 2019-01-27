@@ -9,6 +9,20 @@ public class Trap : MonoBehaviour
     public int damage = 50;
     public int slowedSpeed = 5;
     public int delayTime = 3;
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        if (isDeployed)
+        {
+            animator.SetTrigger("isDeployed");
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,6 +34,7 @@ public class Trap : MonoBehaviour
                 player.hasTrap = true;
                 Destroy(this.gameObject);
             } else if(player.playerNumber != this.playerNumber){
+                animator.SetTrigger("isActivated");
                 //make damage
                 player.hp-=damage;
                 player.isSlowed = true;
