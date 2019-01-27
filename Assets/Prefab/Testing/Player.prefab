@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3766261604680639824}
   - component: {fileID: 3766261604680639831}
   - component: {fileID: 3766261604680639825}
+  - component: {fileID: 72884099}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -111,10 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d47e09e602bf3f4381acb252cf70a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugInput: 0
-  debugMovement: 0
-  debugRotation: 0
-  debugStat: 0
+  lights: {fileID: 0}
   playerSpeed: 30
   hasPickable: 0
   hp: 100
@@ -139,6 +137,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &72884099
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766261604680639830}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 072e231fd3de4d34fa3d1a39984ff4f7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3766261604806058806
 GameObject:
   m_ObjectHideFlags: 0

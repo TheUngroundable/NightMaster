@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
         deployTrap = Input.GetButtonDown(playerNumber+"Trap");
         toggleTorch = Input.GetButtonDown(playerNumber+"Torch");
 
+
     }
 
     void PlayerMovement()
@@ -71,6 +72,8 @@ public class Player : MonoBehaviour
         moveVector = new Vector3(lhAxis * playerSpeed, 0, lvAxis * playerSpeed);
         rb.AddForce(moveVector);
 
+        Debug.Log(lhAxis+" - "+lvAxis);
+        Debug.Log("Move vector"+moveVector);
         if (rb.velocity.z>=1||rb.velocity.x>=1)
         {
             animator.SetBool("isRunning", true);
