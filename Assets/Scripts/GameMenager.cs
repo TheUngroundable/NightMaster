@@ -15,7 +15,7 @@ public class GameMenager : MonoBehaviour
         
     }
 
-    // Update is called once per framse
+    // Update is called once per frame
     void Update()
     {
         currentGameTime = Time.time;
@@ -23,5 +23,7 @@ public class GameMenager : MonoBehaviour
         {
             Debug.Log("fine gioco");
         }
+
+        //currentgametime parte da 0, quando arriva a 3 inizia il gioco attiva player script
     }
 }

@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     //COMPONENTS
     private Rigidbody rb;
+    private Animator animator;
+    public Light lights;
 
     //DEBUG
     public bool debugInput;
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
     void PlayerInit()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void GetInput()
@@ -74,10 +77,12 @@ public class Player : MonoBehaviour
     {
         moveVector = new Vector3(lhAxis * playerSpeed, 0, lvAxis * playerSpeed);
         rb.AddForce(moveVector);
-
-        if (playerNumber == 2)
+        if (rb.velocity.z>=1||rb.velocity.x>=1)
         {
-            Debug.Log(moveVector);
+            animator.SetBool("isRunning", true);
+        } else
+        {
+            animator.SetBool("isRunning", false);
         }
     }
 
