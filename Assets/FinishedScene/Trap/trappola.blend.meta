@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed663ed4ba6ce3f46a97bb095a388522
+guid: 521da7ff2b0a2ab41962d21251c89ad7
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -19,7 +19,9 @@ ModelImporter:
     4300000: trappola
     4300002: trappola_002
     7400000: Default Take
-    7400002: trappola
+    7400002: aperta
+    7400004: chiusa
+    7400006: chiusura
     9500000: //RootNode
     13700000: trappola
   externalObjects: {}
